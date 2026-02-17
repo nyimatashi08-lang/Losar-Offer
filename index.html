@@ -18,7 +18,7 @@
     localStorage.setItem("losar_device_id", deviceId);
   }
 
-  fetch("PASTE_API_URL_HERE?device=" + deviceId)
+  fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?device=" + deviceId)
     .then(res => res.json())
     .then(data => {
       if (data.status === "CLAIMED") {
@@ -40,3 +40,4 @@
 
 </body>
 </html>
+
