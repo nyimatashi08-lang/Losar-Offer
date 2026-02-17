@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Losar Offer</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 40px; }
+    .code { font-size: 42px; color: #b30000; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<script>
+  // Generate device ID once
+  let deviceId = localStorage.getItem("losar_device_id");
+  if (!deviceId) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem("losar_device_id", deviceId);
+  }
+
+  fetch("PASTE_API_URL_HERE?device=" + deviceId)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "CLAIMED") {
+        window.location.href = "claimed.html";
+      } 
+      else if (data.status === "OK") {
+        document.body.innerHTML = `
+          <h1>🎉 Losar Tashi Delek 🎉</h1>
+          <p>Your exclusive discount code:</p>
+          <div class="code">${data.code}</div>
+          <p>Show this code at billing<br><b>20% OFF on all items</b></p>
+        `;
+      } 
+      else {
+        document.body.innerHTML = "<h2>All offers redeemed</h2>";
+      }
+    });
+</script>
+
+</body>
+</html>
